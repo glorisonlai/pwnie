@@ -1,0 +1,5 @@
+---
+- name: "Customizing Pwn Adventure 3 Server"
+  hosts: "pwnie-island-server"
+  roles:
+    - role: "roles/postgresql"

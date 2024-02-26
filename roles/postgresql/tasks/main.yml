@@ -1,0 +1,20 @@
+---
+- name: "Install Postgres"
+  apt:
+    name: postgresql, psycopg2
+    state: present
+  become: true
+
+- name: "Start Postgres"
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: "Create master db"
+  community.postgresql.postgresql_db:
+    name: "{{ item }}"
+    encoding: "UTF-8"
+  become: true
+  become_user: postgres
+  with_items: "{{ db_name }}"
