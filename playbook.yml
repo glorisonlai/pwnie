@@ -1,5 +1,9 @@
 ---
 - name: "Customizing Pwn Adventure 3 Server"
   hosts: "pwnie-island-server"
+  # vars:
+  #   ansible_python_interpreter: /usr/bin/python3
   roles:
-    - role: "roles/postgresql"
+    # - role: "roles/postgresql"
+    - role: "roles/pwnie-island-master"
+    # - role: "roles/pwnie-island-master"

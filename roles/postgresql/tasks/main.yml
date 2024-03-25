@@ -1,7 +1,7 @@
 ---
 - name: "Install Postgres"
   apt:
-    name: postgresql, psycopg2
+    name: postgresql, python-psycopg2
     state: present
   become: true
 
@@ -16,5 +16,13 @@
     name: "{{ item }}"
     encoding: "UTF-8"
   become: true
-  become_user: postgres
+  become_user: "{{ db_user }}"
   with_items: "{{ db_name }}"
+
+- name: "Give role to unix acc"
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ unix_user }}"
+    priv: "ALL"
+  become: true
+  become_user: "{{ db_user }}"

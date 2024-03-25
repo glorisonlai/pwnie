@@ -1,0 +1,23 @@
+---
+# tasks file for pwnie-island
+- name: "Copy Master Server files"
+  ansible.builtin.copy:
+    src: "MasterServer/"
+    dest: "{{ item }}"
+  with_items: "{{ master_dir }}"
+
+- name: "Init DB"
+  ansible.builtin.command:
+    cmd: psql master -f initdb.sql
+    chdir: "{{ master_dir }}"
+
+- name: "Add +x flag to Server"
+  ansible.builtin.command:
+    cmd: "chmod +x MasterServer"
+    chdir: "{{ master_dir }}"
+
+- name: "Create server admin acc"
+  ansible.builtin.shell:
+    cmd: "./MasterServer --create-server-account > admin-creds"
+    chdir: "{{ master_dir }}"
+    creates: "admin-creds"

@@ -1,0 +1,6 @@
+---
+# tasks file for pwnie-island-game
+- name: "Copy Game Server files"
+  ansible.builtin.copy:
+    src: "GameServer"
+    dest: "$HOME/game"
